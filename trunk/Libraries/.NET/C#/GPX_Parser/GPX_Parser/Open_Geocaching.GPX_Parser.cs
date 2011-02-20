@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -96,11 +97,13 @@ namespace Open_Geocaching
             // Sets the number of travel bugs in the cache
             numBugs = (travelBugNodes.Count * 2);
 
-            // Get the latitude of the cache and convert it to a double
-            latitude = Convert.ToDouble(wptNodes[currentWPT].Attributes["lat"].InnerText);
+            // Get the latitude of the cache, apply the current local number format and convert it to a double
+            // CultureInfo.InvariantCulture applies the user current number format based on their locale
+            latitude = Convert.ToDouble(wptNodes[currentWPT].Attributes["lat"].InnerText, CultureInfo.InvariantCulture);
 
-            // Get the longitude of the cache and convert it to a double
-            longitude = Convert.ToDouble(wptNodes[currentWPT].Attributes["lon"].InnerText);
+            // Get the longitude of the cache, apply the current local number format and convert it to a double
+            // CultureInfo.InvariantCulture applies the users current number format based on their locale
+            longitude = Convert.ToDouble(wptNodes[currentWPT].Attributes["lon"].InnerText, CultureInfo.InvariantCulture);
 
             // Get the date the cache was placed
             datePlaced = wptNodes[currentWPT]["time"].InnerText.Remove(wptNodes[currentWPT]["time"].InnerText.IndexOf('T'));
